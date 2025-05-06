@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Airbus & Boeing Alarms Test</title>
+  <title>HTML Canvas Example</title>
   <style>
     .button-category {
       text-align: center;
@@ -19,42 +19,73 @@
       font-size: 20px;
       background-color: yellowgreen;
     }
+    .sound-button {
+  user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none;     /* IE10+ */
+}
+
   </style>
 </head>
 <body>
   <div class="button-category">
     <h1>Airbus A320</h1>
     <div class="button-container">
-      <button data-sound="A320Windshear.mp3">Windshear</button>
-      <button data-sound="Glideslope.mp3">Glideslope</button>
-      <button data-sound="A320SinkRate.mp3" style="color: yellow;">Sink Rate</button>
-      <button data-sound="A320BankAngle.mp3" style="color: yellow;">Bank Angle</button>
-      <button data-sound="A320PullUp.mp3" style="color: red; background-color: #8B0000;">PULL UP</button>
-      <button data-sound="beep-08b.mp3" style="color: red; background-color: #8B0000;">STALL (N/A)</button>
+      <button class="sound-button" data-sound="A320Windshear.mp3">Windshear</button>
+      <button class="sound-button" data-sound="Glideslope.mp3">Glideslope</button>
+      <button class="sound-button" data-sound="A320SinkRate.mp3" style="color: yellow;">Sink Rate</button>
+      <button class="sound-button" data-sound="A320BankAngle.mp3" style="color: yellow;">Bank Angle</button>
+      <button class="sound-button" data-sound="A320PullUp.mp3" style="color: red; background-color: #8B0000;">PULL UP</button>
+      <button class="sound-button" data-sound="beep-08b.mp3" style="color: red; background-color: #8B0000;">STALL (N/A)</button>
     </div>
   </div>
 
   <div class="button-category">
     <h1>Boeing 737</h1>
     <div class="button-container">
-      <button data-sound="737Windshear.mp3">Windshear</button>
-      <button data-sound="Glideslope.mp3">Glideslope</button>
-      <button data-sound="737Sink.mp3" style="color: yellow;">Don't Sink</button>
-      <button data-sound="737BankAngle.mp3" style="color: yellow;">Bank Angle</button>
-      <button data-sound="737PullUp.mp3" style="color: red; background-color: #8B0000;">PULL UP</button>
-      <button data-sound="beep-08b.mp3" style="color: red; background-color: #8B0000;">STALL (N/A)</button>
+      <button class="sound-button" data-sound="737Windshear.mp3">Windshear</button>
+      <button class="sound-button" data-sound="Glideslope.mp3">Glideslope</button>
+      <button class="sound-button" data-sound="737Sink.mp3" style="color: yellow;">Don't Sink</button>
+      <button class="sound-button" data-sound="737BankAngle.mp3" style="color: yellow;">Bank Angle</button>
+      <button class="sound-button" data-sound="737PullUp.mp3" style="color: red; background-color: #8B0000;">PULL UP</button>
+      <button class="sound-button" data-sound="beep-08b.mp3" style="color: red; background-color: #8B0000;">STALL (N/A)</button>
     </div>
   </div>
 
   <script>
     // Handle button click and play corresponding sound
-    document.querySelectorAll("button[data-sound]").forEach(button => {
-      button.addEventListener("click", () => {
-        const soundSrc = `https://raw.githubusercontent.com/N0one123/TestAlarmsPlane/refs/heads/main/${button.dataset.sound}`;
-        const audio = new Audio(soundSrc);
-        audio.play();
-      });
-    });
+document.querySelectorAll('.sound-button').forEach(button => {
+  const audio = new Audio(button.dataset.sound);
+  const soundSrc = `https://raw.githubusercontent.com/N0one123/TestAlarmsPlane/refs/heads/main/${button.dataset.sound}`;
+  let isPlaying = false;
+
+  const startSound = (e) => {
+    e.preventDefault(); // Prevents default behavior like scrolling or zooming
+    if (!isPlaying) {
+      audio.currentTime = 0;
+      audio.play();
+      isPlaying = true;
+    }
+  };
+
+  const stopSound = () => {
+    audio.pause();
+    audio.currentTime = 0;
+    isPlaying = false;
+  };
+
+  // Desktop
+  button.addEventListener('mousedown', startSound);
+  button.addEventListener('mouseup', stopSound);
+  button.addEventListener('mouseleave', stopSound);
+
+  // Mobile
+  button.addEventListener('touchstart', startSound);
+  button.addEventListener('touchend', stopSound);
+  button.addEventListener('touchcancel', stopSound);
+});
+
+
   </script>
 </body>
 </html>
