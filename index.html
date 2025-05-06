@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Airbus & Boeing Alarms Test</title>
+  <style>
+    .button-category {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 20px;
+      background-color: yellowgreen;
+    }
+  </style>
+</head>
+<body>
+  <div class="button-category">
+    <h1>Airbus A320</h1>
+    <div class="button-container">
+      <button data-sound="A320Windshear.mp3">Windshear</button>
+      <button data-sound="Glideslope.mp3">Glideslope</button>
+      <button data-sound="A320SinkRate.mp3" style="color: yellow;">Sink Rate</button>
+      <button data-sound="A320BankAngle.mp3" style="color: yellow;">Bank Angle</button>
+      <button data-sound="A320PullUp.mp3" style="color: red; background-color: #8B0000;">PULL UP</button>
+      <button data-sound="beep-08b.mp3" style="color: red; background-color: #8B0000;">STALL (N/A)</button>
+    </div>
+  </div>
+
+  <div class="button-category">
+    <h1>Boeing 737</h1>
+    <div class="button-container">
+      <button data-sound="737Windshear.mp3">Windshear</button>
+      <button data-sound="Glideslope.mp3">Glideslope</button>
+      <button data-sound="737Sink.mp3" style="color: yellow;">Don't Sink</button>
+      <button data-sound="737BankAngle.mp3" style="color: yellow;">Bank Angle</button>
+      <button data-sound="737PullUp.mp3" style="color: red; background-color: #8B0000;">PULL UP</button>
+      <button data-sound="beep-08b.mp3" style="color: red; background-color: #8B0000;">STALL (N/A)</button>
+    </div>
+  </div>
+
+  <script>
+    // Handle button click and play corresponding sound
+    document.querySelectorAll("button[data-sound]").forEach(button => {
+      button.addEventListener("click", () => {
+        const soundSrc = `https://raw.githubusercontent.com/N0one123/TestAlarmsPlane/refs/heads/main/${button.dataset.sound}`;
+        const audio = new Audio(soundSrc);
+        audio.play();
+      });
+    });
+  </script>
+</body>
+</html>
